@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/** Persistence gateway подсистемы C. Остаток лекарства и заказ меняются в ОДНОЙ транзакции. */
+
 public class ClinicalOrderRepository {
     private final String url;
 
@@ -57,7 +57,7 @@ public class ClinicalOrderRepository {
         }
     }
 
-    // ---------- аптечный склад ----------
+
 
     public void setStock(String medication, int available) {
         String sql = "INSERT OR REPLACE INTO pharmacy_stock (medication, available) VALUES (?, ?)";
@@ -82,9 +82,9 @@ public class ClinicalOrderRepository {
         }
     }
 
-    // ---------- заказы (транзакции) ----------
 
-    /** Списать лекарство + записать заказ. Всё или ничего. */
+
+
     public void place(ClinicalOrder order) {
         try (Connection c = open()) {
             c.setAutoCommit(false);
@@ -110,7 +110,7 @@ public class ClinicalOrderRepository {
         }
     }
 
-    /** Вернуть лекарство на склад + пометить заказ CANCELLED. Всё или ничего. */
+
     public void cancel(ClinicalOrder order) {
         try (Connection c = open()) {
             c.setAutoCommit(false);
@@ -135,7 +135,7 @@ public class ClinicalOrderRepository {
         }
     }
 
-    // ---------- чтение ----------
+
 
     public Optional<ClinicalOrder> findByChainId(String chainId) {
         String sql = "SELECT * FROM orders WHERE chain_id = ?";
@@ -163,7 +163,7 @@ public class ClinicalOrderRepository {
         }
     }
 
-    // ---------- вспомогательные методы ----------
+
 
     private void insertOrder(Connection c, ClinicalOrder o) throws SQLException {
         String sql = "INSERT INTO orders (id, chain_id, lab_test, medication, status) "

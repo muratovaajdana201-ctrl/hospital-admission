@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/** Persistence gateway подсистемы B. Койка, оборудование и бронь меняются в ОДНОЙ транзакции. */
+
 public class ResourceRepository {
     private final String url;
 
@@ -64,10 +64,10 @@ public class ResourceRepository {
         }
     }
 
-    // ---------- справочные данные (койки, остатки) ----------
+
 
     public void saveBed(String bedId, String wardType) {
-        execute("INSERT OR REPLACE INTO beds (bed_id, ward_type, occupied) VALUES (?, ?, 0)",
+        execute("INSERT OR IGNORE INTO beds (bed_id, ward_type, occupied) VALUES (?, ?, 0)",
                 bedId, wardType);
     }
 
@@ -122,9 +122,7 @@ public class ResourceRepository {
         }
     }
 
-    // ---------- бронирование (транзакции) ----------
 
-    /** Занять койку + списать оборудование + записать бронь. Всё или ничего. */
     public void allocate(ResourceBooking booking) {
         try (Connection c = open()) {
             c.setAutoCommit(false);
@@ -149,7 +147,7 @@ public class ResourceRepository {
                 insertBooking(c, booking);
                 c.commit();
             } catch (SQLException | RuntimeException e) {
-                c.rollback();   // откатываем всё, что успели изменить в этой транзакции
+                c.rollback();
                 throw e;
             }
         } catch (SQLException e) {
@@ -157,7 +155,7 @@ public class ResourceRepository {
         }
     }
 
-    /** Освободить койку + вернуть оборудование + пометить бронь RELEASED. Всё или ничего. */
+
     public void release(ResourceBooking booking) {
         try (Connection c = open()) {
             c.setAutoCommit(false);
@@ -183,7 +181,7 @@ public class ResourceRepository {
         }
     }
 
-    // ---------- чтение броней ----------
+
 
     public Optional<ResourceBooking> findByChainId(String chainId) {
         String sql = "SELECT * FROM bookings WHERE chain_id = ?";
@@ -211,7 +209,7 @@ public class ResourceRepository {
         }
     }
 
-    // ---------- вспомогательные методы ----------
+
 
     private void insertBooking(Connection c, ResourceBooking b) throws SQLException {
         String sql = "INSERT INTO bookings (id, chain_id, bed_id, equipment_type, status) "

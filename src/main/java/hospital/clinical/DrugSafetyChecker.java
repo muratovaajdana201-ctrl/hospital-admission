@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/** Чистая логика: проверяет названия и конфликт лекарства с аллергиями. Не знает про БД. */
+
 public class DrugSafetyChecker {
 
-    /** Лекарство -> его класс. Аллергия может быть указана и на класс, и на само лекарство. */
+
     private static final Map<String, String> DRUG_CLASS = Map.of(
             "AMOXICILLIN", "PENICILLIN",
             "PARACETAMOL", "ANALGESIC",

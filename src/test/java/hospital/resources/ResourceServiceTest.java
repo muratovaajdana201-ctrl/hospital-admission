@@ -30,7 +30,7 @@ class ResourceServiceTest {
         repository.setEquipmentStock("MONITOR", 2);
     }
 
-    // ---------- маленький тестовый язык (DSL) ----------
+
 
     private ResourceBooking allocateGeneralBed(String chainId) {
         return service.allocate(chainId, "GENERAL", "NONE");
@@ -60,7 +60,7 @@ class ResourceServiceTest {
         assertTrue(repository.findByChainId(chainId).isEmpty());
     }
 
-    // ---------- тесты ----------
+
 
     @Test
     void generalBedIsAllocatedAndMarkedOccupied() {
@@ -74,7 +74,7 @@ class ResourceServiceTest {
     void allocationSurvivesRestart() {
         allocateIcuWithVentilator("c1");
 
-        // "Перезапуск": новый репозиторий на том же файле
+
         ResourceRepository afterRestart = new ResourceRepository(tempDir.resolve("resources.db"));
 
         assertEquals(BookingStatus.ALLOCATED,
@@ -102,7 +102,7 @@ class ResourceServiceTest {
         assertThrows(NoBedAvailableException.class,
                 () -> service.allocate("c2", "ICU", "MONITOR"));
         assertNoBookingFor("c2");
-        assertEquipmentLeft("MONITOR", 2);   // оборудование не тронуто
+        assertEquipmentLeft("MONITOR", 2);
     }
 
     @Test
@@ -112,7 +112,7 @@ class ResourceServiceTest {
         assertThrows(EquipmentUnavailableException.class,
                 () -> allocateIcuWithVentilator("c1"));
 
-        assertBedFree("I1");        // койку НЕ оставили занятой: транзакция откатилась
+        assertBedFree("I1");
         assertNoBookingFor("c1");
     }
 

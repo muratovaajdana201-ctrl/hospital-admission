@@ -6,7 +6,7 @@ import hospital.exceptions.NoBedAvailableException;
 import java.util.List;
 import java.util.Set;
 
-/** Чистая логика: проверяет запрос и выбирает койку. Не знает про БД. */
+
 public class BedAllocator {
     public static final String GENERAL = "GENERAL";
     public static final String ICU = "ICU";
@@ -24,7 +24,7 @@ public class BedAllocator {
         }
     }
 
-    /** Из свободных коек нужной палаты берёт первую по алфавиту. Пусто, значит, исключение. */
+
     public String choose(String wardType, List<String> freeBedIds) {
         return freeBedIds.stream()
                 .sorted()

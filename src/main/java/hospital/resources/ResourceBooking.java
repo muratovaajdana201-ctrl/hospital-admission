@@ -2,14 +2,13 @@ package hospital.resources;
 
 import java.util.UUID;
 
-/** Сущность подсистемы B. Сама защищает переходы статусов. */
 public class ResourceBooking {
     public static final String NO_EQUIPMENT = "NONE";
 
     private final String id;
     private final String chainId;
     private final String bedId;
-    private final String equipmentType;   // "NONE", если оборудование не нужно
+    private final String equipmentType;
     private BookingStatus status;
 
     public ResourceBooking(String chainId, String bedId, String equipmentType) {
@@ -25,7 +24,7 @@ public class ResourceBooking {
         this.status = status;
     }
 
-    /** Восстановление из БД. */
+
     public static ResourceBooking restore(String id, String chainId, String bedId,
                                           String equipmentType, BookingStatus status) {
         return new ResourceBooking(id, chainId, bedId, equipmentType, status);

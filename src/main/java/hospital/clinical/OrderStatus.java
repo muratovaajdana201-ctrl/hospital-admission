@@ -1,6 +1,6 @@
 package hospital.clinical;
 
-/** Жизненный цикл клинического заказа (анализ + лекарство). */
+
 public enum OrderStatus {
     PENDING,
     CONFIRMED,

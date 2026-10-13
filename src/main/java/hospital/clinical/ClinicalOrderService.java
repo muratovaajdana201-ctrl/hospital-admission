@@ -3,7 +3,7 @@ package hospital.clinical;
 import java.util.List;
 import java.util.Optional;
 
-/** Сервис подсистемы C: назначает анализ и лекарство, умеет отменять заказ. */
+
 public class ClinicalOrderService {
     private final ClinicalOrderRepository repository;
     private final DrugSafetyChecker checker;
@@ -13,7 +13,7 @@ public class ClinicalOrderService {
         this.checker = checker;
     }
 
-    /** Шаг C цепочки. Сначала проверки (чистая логика), потом транзакционная запись. */
+
     public ClinicalOrder place(String chainId, String labTest, String medication,
                                List<String> allergies) {
         checker.validate(labTest, medication);
@@ -25,7 +25,7 @@ public class ClinicalOrderService {
         return order;
     }
 
-    /** Компенсация шага C. Идемпотентна: можно вызывать сколько угодно раз. */
+
     public void cancelByChain(String chainId) {
         repository.findByChainId(chainId).ifPresent(order -> {
             if (order.getStatus() == OrderStatus.CONFIRMED) {
@@ -41,5 +41,15 @@ public class ClinicalOrderService {
 
     public List<ClinicalOrder> findAll() {
         return repository.findAll();
+    }
+
+
+
+    public void setStock(String medication, int available) {
+        repository.setStock(medication, available);
+    }
+
+    public int stockOf(String medication) {
+        return repository.stockOf(medication);
     }
 }

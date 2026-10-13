@@ -3,6 +3,7 @@ package hospital.registration;
 import hospital.exceptions.InsuranceRejectedException;
 import hospital.exceptions.InvalidPatientDataException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +51,17 @@ public class RegistrationDesk {
 
     public List<Registration> findAll() {
         return repository.findAll();
+    }
+
+
+
+    public void addPolicy(String policyNumber, double coverageLimit, LocalDate validUntil) {
+        repository.savePolicy(new RegistrationRepository.PolicyRecord(
+                policyNumber, coverageLimit, validUntil));
+    }
+
+    public boolean hasPolicy(String policyNumber) {
+        return repository.findPolicy(policyNumber).isPresent();
     }
 
     private void validateInput(String name, int age, String policyNumber, double cost) {

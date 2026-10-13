@@ -27,7 +27,7 @@ class ClinicalOrderServiceTest {
         repository.setStock("AMOXICILLIN", 2);
     }
 
-    // ---------- маленький тестовый язык (DSL) ----------
+
 
     private ClinicalOrder orderParacetamol(String chainId) {
         return service.place(chainId, "BLOOD", "PARACETAMOL", List.of());
@@ -45,7 +45,7 @@ class ClinicalOrderServiceTest {
         assertEquals(expected, repository.stockOf(medication));
     }
 
-    // ---------- тесты ----------
+
 
     @Test
     void confirmedOrderIsPersisted() {

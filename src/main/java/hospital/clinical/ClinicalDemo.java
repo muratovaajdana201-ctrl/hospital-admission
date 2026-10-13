@@ -3,7 +3,7 @@ package hospital.clinical;
 import java.nio.file.Path;
 import java.util.List;
 
-/** Запуск подсистемы C без фасада и без A/B. */
+
 public class ClinicalDemo {
     public static void main(String[] args) {
         ClinicalOrderRepository repository =

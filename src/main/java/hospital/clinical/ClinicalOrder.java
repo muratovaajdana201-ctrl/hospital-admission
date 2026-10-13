@@ -2,7 +2,7 @@ package hospital.clinical;
 
 import java.util.UUID;
 
-/** Сущность подсистемы C. Сама защищает переходы статусов. */
+
 public class ClinicalOrder {
     public static final String NONE = "NONE";
 

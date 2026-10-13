@@ -2,7 +2,7 @@ package hospital.resources;
 
 import java.nio.file.Path;
 
-/** Запуск подсистемы B без фасада и без A/C. */
+
 public class ResourceDemo {
     public static void main(String[] args) {
         ResourceRepository repository =
