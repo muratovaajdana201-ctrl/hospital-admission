@@ -41,6 +41,12 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.14</version>
+                <configuration>
+                    <excludes>
+                        <exclude>hospital/app/**</exclude>
+                        <exclude>**/*Demo.class</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals><goal>prepare-agent</goal></goals>
@@ -55,10 +61,6 @@
                         <phase>verify</phase>
                         <goals><goal>check</goal></goals>
                         <configuration>
-                            <excludes>
-                                <exclude>hospital/app/**</exclude>
-                                <exclude>**/*Demo.class</exclude>
-                            </excludes>
                             <rules>
                                 <rule>
                                     <element>BUNDLE</element>
@@ -75,6 +77,16 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>hospital.app.ConsoleApp</mainClass>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>
