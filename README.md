@@ -18,12 +18,12 @@ The first command starts the console demo. The second runs the unit tests. The t
 
 ### Resetting the stored data
 
-The program keeps its data in the data folder. To start from a clean state, either choose option 13 in the demo menu and type `yes`, or close the program and delete the `data` folder. On the next start the databases and the demo data are created again automatically.
+The program keeps its data in the data folder. To start from a clean state, either choose option 13 in the demo menu and type `yes`, or close the program and delete the data folder. On the next start the databases and the demo data are created again automatically.
 
 ## Structure
 
 The UML class diagram is in docs/uml.png. The editable source is docs/uml.drawio.
-![UML class diagram](docs/uml.png)
+![UML class diagram](docs/uml.drawio.png)
 ### The three subsystems
 
 Each subsystem has five classes and the same shape. It has an entity that holds the state, a status enum with three values, one class with pure business logic that never touches the database, a persistence gateway that talks to SQLite, and a service that ties them together.
@@ -167,7 +167,7 @@ Two tests cover reloading. crashAfterB_chainSurvivesRestartAndIsRecoveredFromDis
 I measured coverage with JaCoCo. It is the standard coverage tool for Maven, and it works together with `mvn test` without extra setup. The build fails if line coverage drops below 80 percent. The current result is XX percent of lines.
 
 The console interface in hospital.app and the standalone Demo classes are excluded from the measurement. They only read keyboard input and print text, and the logic they use is already tested through the facades.
-![JaCoCo coverage report](docs/coverage.png)
+![JaCoCo coverage report](docs/docscoverage.png)
 ## Conclusion
 
 In this assignment I built a small hospital admission system around one idea: three subsystems that know nothing about each other, and a facade that makes them look like a single operation. The system really runs. It stores its data in SQLite files, it survives a restart, and I can start any of the failure scenarios from the console menu and watch what happens.
