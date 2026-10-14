@@ -82,7 +82,10 @@ The second compensation depth is option 5. A patient is allergic to penicillin b
 
 The crash case is option 11. The process is killed right after step B. After starting the program again, the chain is still visible as PENDING_C, and option 10 finds it on disk and compensates it.
 
-I defined my own exceptions. AdmissionException is the base class for business errors. Below it are `InvalidPatientDataException`, `InsuranceRejectedException`, `NoBedAvailableException`, `EquipmentUnavailableException`, `PharmacyRejectedException` and `ChainNotFoundException`. There is also `PersistenceException` for technical database problems, and it deliberately does not extend `AdmissionException`. The facade catches only `AdmissionException`. A crash or a database failure is not swallowed, so the chain stays on disk and gets recovered later.
+I defined my own exceptions. AdmissionException is the base class for business errors. Below it are InvalidPatientDataException, InsuranceRejectedException, NoBedAvailableException, EquipmentUnavailableException, PharmacyRejectedException and ChainNotFoundException. There is also PersistenceException for technical database problems, and it deliberately does not extend `AdmissionException`. The facade catches only AdmissionException. A crash or a database failure is not swallowed, so the chain stays on disk and gets recovered later.
+![Step B fails, only A is compensated](docs/demo-fail-b.png)
+
+![Step C fails, B then A are compensated](docs/demo-fail-c.png)
 
 ## Principle of Least Knowledge, before and after
 
